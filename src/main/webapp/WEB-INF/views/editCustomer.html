@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<form action="/edit" method="post">
+<form action="/edit" method="post" enctype="multipart/form-data">
     <div class="container">
         <h2>Striped Rows</h2>
         <table class="table table-striped">
@@ -25,8 +25,9 @@
             <tbody>
             <tr>
                 <td><input th:value="${customer.getId()}" name="id" hidden></td>
-                <td><input name="name" th:value="${customer.getName()}" placeholder="Enter a Name"></td>
-                <td><input th:value="${customer.getImg()}" name="img" placeholder="Enter a Image"></td>
+                <td><input name="name" th:value="${customer.getName()}" placeholder="Enter a Name"/></td>
+                <td><img th:src="${customer.getImg()}"/></td>
+                <td><input name="uppFile" type="file" placeholder="Nhập Img"/></td>
             </tr>
 
             <button class="btn btn-success" type="submit">Submit

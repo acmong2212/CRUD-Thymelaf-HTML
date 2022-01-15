@@ -6,7 +6,9 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring5.ISpringTemplateEngine;
@@ -50,5 +52,21 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine((ISpringTemplateEngine) templateEngine());
         return viewResolver;
+    }
+    // Hết cấu hình Thymeleaf
+
+    // chỉ cho server biết chỗ lấy tài liệu tĩnh.(js,css,img)
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/img/**")
+                .addResourceLocations("file:D:\\Module 4\\3. Views & Thymeleaf\\CRUD-Thymelaf\\src\\main\\webapp\\WEB-INF\\image\\");
+    }
+
+    // Thay đổi kích thước file upload
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSizePerFile(1000000000);
+        return multipartResolver;
     }
 }
